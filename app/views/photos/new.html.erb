@@ -1,0 +1,182 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://fonts.googleapis.com/css?family=Sniglet" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet">
+    </head>
+    <body>
+        <%= form_tag upload_multiple_photos_path, method: :put, multipart: true do %>
+        <div class="page-bg p-4">
+            <div class="white-bg">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12 hd">
+                            <h3>Claim Photo Capture</h3>
+                        </div>
+                        <div class="col-md-12 p-4">
+                            <h4 class="text-center"><b>REPLACE WITH <br>ANY NICE</b></h4>
+                        </div>
+                        <div class="col-md-12">
+                            <h5><b>A fast and easy way to capture your claim photos and documents!</b></h5>
+                        </div>
+                        <div class="col-9 light-color">
+                        </div>
+                        <div class="col-3 dark-color">
+                        </div>
+                        <div class="col-md-12 py-2">
+                            <h5>Claim no. :2</h5>
+                            <h5>Arslan Ahmad</h5>
+                        </div>
+                        <div class="col-md-12 photo">
+                            <h4>Photo upload/capture</h4>
+                        </div>
+
+                        <div class="col-md-12 photo-bg">
+                            <div class="row">
+                              <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+                              <% @empty_photos.each_with_index do |photo, index| %>
+                                <%= fields_for "photos[]", photo, include_id: false do |f| %>
+
+                                  <div class="col-md-6" id=<%= index == 4 ? "extra" : "" %>>
+                                  <p>Damage room overview 1</p>
+                                  <div class="upload-btn-wrapper">
+
+                                        <% if @photos.where(name: "photo-#{index}").present? %>
+                                            <%= image_tag serve_photo_path(@photos.where(name: "photo-#{index}").first), id: "photo-#{index}" %>
+                                        <% else %>
+                                            <%= image_tag "img-#{index}.png", class: "img-fluid", id: "grid-#{index}" %>
+                                        <% end %>
+
+                                        <%= f.hidden_field :name, value: "photo-#{index}" %>
+                                        <%= f.file_field :data, class: "file", id: "upload-#{index}", style: "height: 100%;" %>
+
+                                  </div>
+                                  </div>
+
+                                <% end %>
+                              <% end %>
+                                <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+
+
+
+
+                                <!-- <div class="col-md-6 mt-2" id="extra">
+                                    <p>Damage room overview 1</p>
+                                    <div class="upload-btn-wrapper">
+                                        <%#= f.hidden_field :name, value: "photo-#{rand(10)}" %>
+                                        <%#= image_tag "photo-upload.png", class: "img-fluid" %>
+
+                                            <%#= f.hidden_field :name, value: "photo-#{rand(10)}" %>
+                                            <%#= f.file_field :data, class: "file", id: "extra-plus"  %>
+
+
+
+                                    </div>
+                                </div> -->
+                            </div>
+                        </div>
+                        <div class="col-md-12 px-5 py-2">
+                            <div class="form-group form-check">
+                                <input type="checkbox" class="form-check-input" id="exampleCheck1" required>
+                                <label class="form-check-label" for="exampleCheck1">I agree to the <a href="#">Terms & Conditions</a></label>
+                            </div>
+                            <%#= submit_tag "Submit", id: "final_send" %>
+                            <p><%= submit_tag "Submit" %></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <% end %>
+        <%#= content_for :javascript do -%>
+        <script type="text/javascript">
+        	$(function() {
+
+                var counter = 4;
+                // var preview = $(".upload-preview img");
+
+                $("#upload-0").change(function(event){
+
+                   var input = $(event.currentTarget);
+                   var file = input[0].files[0];
+                   var reader = new FileReader();
+                   reader.onload = function(e){
+                       image_base64 = e.target.result;
+                       $("img#photo-0").attr("src", image_base64);
+                       $("img#grid-0").attr("src", image_base64);
+                   };
+                   reader.readAsDataURL(file);
+                });
+
+                $("#upload-1").change(function(event){
+
+                   var input = $(event.currentTarget);
+                   var file = input[0].files[0];
+                   var reader = new FileReader();
+                   reader.onload = function(e){
+                       image_base64 = e.target.result;
+                       $("img#photo-1").attr("src", image_base64);
+                       $("img#grid-1").attr("src", image_base64);
+                   };
+                   reader.readAsDataURL(file);
+                });
+
+                $("#upload-2").change(function(event){
+
+                   var input = $(event.currentTarget);
+                   var file = input[0].files[0];
+                   var reader = new FileReader();
+                   reader.onload = function(e){
+                       image_base64 = e.target.result;
+                       $("img#photo-2").attr("src", image_base64);
+                       $("img#grid-2").attr("src", image_base64);
+                   };
+                   reader.readAsDataURL(file);
+                });
+
+                $("#upload-3").change(function(event){
+
+                   var input = $(event.currentTarget);
+                   var file = input[0].files[0];
+                   var reader = new FileReader();
+                   reader.onload = function(e){
+                       image_base64 = e.target.result;
+                       $("img#photo-3").attr("src", image_base64);
+                       $("img#grid-3").attr("src", image_base64);
+                   };
+                   reader.readAsDataURL(file);
+                });
+
+                $("#upload-4").change(function(event){
+
+                   var input = $(event.currentTarget);
+                   var file = input[0].files[0];
+                   var reader = new FileReader();
+                   reader.onload = function(e){
+                       image_base64 = e.target.result;
+
+                       $("img#grid-4").attr("id", counter + 1);
+                       $("#extra").before(`<div class="col-md-6 mt-2"><p>Damage room overview 1</p><div class="upload-btn-wrapper"><img class="img-fluid" id="grid-${counter}" src=${image_base64} alt="Img 2"></div></div>`);
+                       counter += 1;
+                   };
+                   reader.readAsDataURL(file);
+                });
+
+                $("#final_send").click(function() {
+
+                  //Select the parent form and submit
+                  $("#1-1").parent("form").submit();
+                  $("#1-2").parent("form").submit();
+                  $("#2-1").parent("form").submit();
+                  $("#2-2").parent("form").submit();
+
+                });
+            });
+        </script>
+        <%# end -%>
+    </body>
+</html>
